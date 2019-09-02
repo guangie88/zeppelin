@@ -57,6 +57,9 @@ public abstract class SparkShims {
   private static SparkShims loadShims(String sparkVersion, Properties properties)
       throws ReflectiveOperationException {
     Class<?> sparkShimsClass;
+    System.out.println("Spark version " + sparkVersion);
+    LOGGER.warn("Spark version " + sparkVersion);
+
     if ("3".equals(sparkVersion)) {
       LOGGER.info("Initializing shims for Spark 3.x");
       sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark3Shims");
@@ -64,8 +67,11 @@ public abstract class SparkShims {
       LOGGER.info("Initializing shims for Spark 2.x");
       sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark2Shims");
     } else {
-      LOGGER.info("Initializing shims for Spark 1.x");
-      sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark1Shims");
+      // LOGGER.info("Initializing shims for Spark 1.x");
+      // sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark1Shims");
+
+      LOGGER.info("Initializing shims for Spark 3.x");
+      sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark3Shims");
     }
 
     Constructor c = sparkShimsClass.getConstructor(Properties.class);
