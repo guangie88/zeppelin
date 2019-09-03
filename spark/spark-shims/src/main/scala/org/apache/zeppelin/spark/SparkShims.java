@@ -67,11 +67,8 @@ public abstract class SparkShims {
       LOGGER.info("Initializing shims for Spark 2.x");
       sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark2Shims");
     } else {
-      // LOGGER.info("Initializing shims for Spark 1.x");
-      // sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark1Shims");
-
-      LOGGER.info("Initializing shims for Spark 3.x");
-      sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark3Shims");
+      LOGGER.info("Initializing shims for Spark 1.x");
+      sparkShimsClass = Class.forName("org.apache.zeppelin.spark.Spark1Shims");
     }
 
     Constructor c = sparkShimsClass.getConstructor(Properties.class);
@@ -91,7 +88,8 @@ public abstract class SparkShims {
   }
 
   private static String getSparkMajorVersion(String sparkVersion) {
-    return sparkVersion.startsWith("2") ? "2" : "1";
+    return sparkVersion.split("\\.")[0];
+    // return sparkVersion.startsWith("2") ? "2" : "1";
   }
 
   /**
